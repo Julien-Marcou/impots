@@ -1,0 +1,152 @@
+:host {
+  display: block;
+}
+
+.income-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+
+  > * {
+    margin: 0.5rem;
+  }
+
+  .income-input-container {
+    position: relative;
+    max-width: 400px;
+
+    .income-input {
+      margin: 0;
+      padding-right: 2.5rem;
+      font-size: 1.2rem;
+      text-align: right;
+    }
+
+    .income-unit {
+      color: var(--input-text-color);
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.income-description, .income-error {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.income-error {
+  color: var(--invalid-color);
+}
+
+.tax-graph {
+  margin: 0 100px;
+  display: grid;
+  grid-gap: 12px 6px;
+  padding: 10px 0 calc(2.2rem + 20px);
+  margin-bottom: 1rem;
+
+  &:before {
+    content: "";
+    display: block;
+    height: 0.8rem;
+    grid-column: 1 / -1;
+    background: linear-gradient(to right, #eee 10%, #fff600 35%, #faa60c 55%, #f66018 80%, #f12323 100%);
+    border-radius: 0.8rem;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07);
+  }
+
+  .tax-bracket {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 80px;
+    height: 80px;
+    padding: 0.4rem;
+    margin-bottom: 15px;
+    border-radius: var(--card-element-border-radius);
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07);
+
+    .tax-bracket-rate {
+      font-size: 1.3rem;
+      color: #000;
+      text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    }
+
+    &:first-child {
+      min-width: 40px;
+    }
+  }
+
+  .next-tax-bracket {
+    text-align: center;
+    border: 3px dashed;
+  }
+
+  .tax-step {
+    position: relative;
+    width: 3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    .tax-step-amount {
+      position: absolute;
+      top: calc(100% + 5px);
+      left: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100px;
+      height: 2.2rem;
+      text-align: center;
+      transform: translateX(-50%);
+    }
+
+    &.income .tax-step-amount {
+      color: var(--primary-color);
+    }
+  }
+}
+
+.tax-results {
+  display: grid;
+  grid-gap: 1rem 3rem;
+  grid-template-columns: 80px max-content 1fr;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  padding: 0 60px;
+
+  .tax-bracket {
+    display: contents;
+
+    .tax-bracket-color {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      padding: 0.4rem;
+      color: #000;
+      text-align: center;
+      border-radius: var(--card-element-border-radius);
+      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.07);
+      text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.5);
+    }
+  }
+}
+
+.total-tax-result {
+  max-width: 1200px;
+  margin: 0 auto 5rem;
+  padding: 0 60px;
+  font-size: 1.2rem;
+}

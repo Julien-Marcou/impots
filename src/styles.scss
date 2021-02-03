@@ -1,0 +1,88 @@
+@import "./styles/reset";
+@import "./styles/variables";
+
+body {
+  background-color: var(--default-fill-color);
+  color: var(--default-text-color);
+  min-width: 1150px;
+}
+
+input {
+  background-color: var(--input-fill-color);
+  color: var(--input-text-color);
+  padding: 0.75rem 0.95rem;
+  margin-bottom: 2rem;
+  border: var(--input-border-width) solid var(--input-border-color);
+  border-radius: var(--form-element-border-radius);
+  transition: box-shadow var(--form-element-transition), border var(--form-element-transition);
+  box-shadow: var(--form-element-shadow);
+
+  &:hover {
+    border-color: var(--input-focus-border-color);
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    border-color: var(--input-border-color);
+    box-shadow: none;
+    opacity: 0.5;
+  }
+
+  &.ng-touched.ng-invalid {
+    border-color: var(--input-invalid-border-color);
+  }
+
+  &:focus {
+    border-color: var(--input-focus-border-color) !important;
+    box-shadow: var(--input-focus-shadow);
+  }
+}
+
+button {
+  padding: 0.9rem 2rem;
+  border-radius: var(--form-element-border-radius);
+  box-shadow: var(--form-element-shadow);
+  transition: box-shadow var(--form-element-transition), background-color var(--form-element-transition);
+
+  &[disabled] {
+    cursor: not-allowed;
+    box-shadow: none;
+    opacity: 0.8;
+  }
+
+  &.primary-button {
+    background-color: var(--primary-button-fill-color);
+    color: var(--primary-button-text-color);
+
+    &:hover {
+      background-color: var(--primary-button-hover-fill-color);
+    }
+
+    &[disabled] {
+      background-color: var(--primary-button-disabled-fill-color);
+    }
+
+    &:focus {
+      background-color: var(--primary-button-hover-fill-color);
+      box-shadow : var(--primary-button-focus-shadow);
+    }
+  }
+
+  &.secondary-button {
+    background-color: var(--secondary-button-fill-color);
+    color: var(--secondary-button-text-color);
+
+    &:hover {
+      background-color: var(--secondary-button-hover-fill-color);
+    }
+
+    &[disabled] {
+      background-color: var(--secondary-button-disabled-fill-color);
+    }
+
+    &:focus {
+      background-color: var(--secondary-button-hover-fill-color);
+      box-shadow : var(--secondary-button-focus-shadow);
+    }
+  }
+}

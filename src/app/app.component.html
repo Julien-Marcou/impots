@@ -1,0 +1,112 @@
+<div class="income-form">
+
+  <button type="button" class="secondary-button" (click)="decreaseIncome(10000)" [disabled]="incomeInput.value - 10000 < minIncome">
+    -10K€
+  </button>
+  <button type="button" class="secondary-button" (click)="decreaseIncome(5000)" [disabled]="incomeInput.value - 5000 < minIncome">
+    -5K€
+  </button>
+  <button type="button" class="secondary-button" (click)="decreaseIncome(1000)" [disabled]="incomeInput.value - 1000 < minIncome">
+    -1K€
+  </button>
+
+  <div class="income-input-container">
+    <input type="number" class="income-input" [formControl]="incomeInput" placeholder="Revenus imposables" autocomplete="off">
+    <div class="income-unit" aria-hidden="true">€</div>
+  </div>
+
+  <button type="button" class="primary-button" (click)="increaseIncome(1000)" [disabled]="incomeInput.value + 1000 > maxIncome">
+    +1K€
+  </button>
+  <button type="button" class="primary-button" (click)="increaseIncome(5000)" [disabled]="incomeInput.value + 5000 > maxIncome">
+    +5K€
+  </button>
+  <button type="button" class="primary-button" (click)="increaseIncome(10000)" [disabled]="incomeInput.value + 10000 > maxIncome">
+    +10K€
+  </button>
+
+</div>
+
+<ng-container *ngIf="incomeInput.touched || incomeInput.dirty || incomeInput.valid; else incomeInputDescriptionTemplate">
+
+  <ng-container *ngIf="incomeInput.valid; else incomeInputErrorTemplate">
+    <div class="tax-graph" [style.gridTemplateColumns]="gridTemplateColumns">
+      <ng-container *ngFor="let taxBracket of taxBrackets; last as last">
+        <ng-container *ngIf="taxBracket.matched">
+
+          <div class="tax-bracket" [style.backgroundColor]="taxBracket.color">
+            <div class="tax-bracket-rate">
+              {{ taxBracket.rate }}%
+            </div>
+          </div>
+
+          <ng-container *ngIf="taxBracket.lastMatched">
+
+            <div class="tax-step income" [style.backgroundColor]="taxBracket.color">
+              <div class="tax-step-amount">
+                <strong>{{ incomeInput.value }}€</strong>
+              </div>
+            </div>
+
+            <div class="tax-bracket next-tax-bracket" *ngIf="!last" [style.borderColor]="taxBracket.color">
+              Prochaine tranche à
+            </div>
+
+          </ng-container>
+
+          <div class="tax-step" *ngIf="taxBracket.to < maxIncome"  [style.backgroundColor]="taxBracket.color">
+            <div class="tax-step-amount">
+              {{ taxBracket.to }}€
+            </div>
+          </div>
+
+        </ng-container>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <ng-template #incomeInputErrorTemplate>
+    <p class="income-error">
+      Montant renseigné invalide
+    </p>
+  </ng-template>
+
+</ng-container>
+
+<ng-template #incomeInputDescriptionTemplate>
+  <p class="income-description">
+    Veuillez renseigner le montant de vos revenus imposables
+  </p>
+</ng-template>
+
+<div class="tax-results" *ngIf="incomeInput.valid && incomeInput.value > 0">
+
+  <ng-container *ngFor="let taxBracket of taxBrackets; index as i">
+    <div class="tax-bracket" *ngIf="taxBracket.matched">
+
+      <div class="tax-bracket-color" [style.backgroundColor]="taxBracket.color">
+        {{ i === 0 ? '1ère' : (i+1) + 'ème' }} tranche
+      </div>
+
+      <div class="tax-bracket-description">
+        <ng-container *ngIf="taxBracket.rate > 0; else noTaxRateTemplate">
+          <strong>{{ taxBracket.rate }}%</strong> de vos revenus de <strong>{{ taxBracket.from }}</strong>€ à <strong>{{ taxBracket.lastMatched ? incomeInput.value : taxBracket.to }}</strong>€ sont imposés
+        </ng-container>
+
+        <ng-template #noTaxRateTemplate>
+          <strong>Aucun</strong> de vos revenus de <strong>{{ taxBracket.from }}</strong>€ à <strong>{{ taxBracket.lastMatched ? incomeInput.value : taxBracket.to }}</strong>€ ne sont imposés
+        </ng-template>
+      </div>
+
+      <div class="tax-bracket-amount">
+        Soit <strong>{{ taxBracket.amount }}€</strong> pour la {{ i === 0 ? '1ère' : (i+1) + 'ème' }} tranche
+      </div>
+
+    </div>
+  </ng-container>
+
+</div>
+
+<div class="total-tax-result" *ngIf="incomeInput.valid && incomeInput.value > 0">
+  Ce qui représente un total de <strong>{{ totalTaxAmount }}€</strong> d'impôts ou encore un taux de prélèvement à la source de <strong>{{ totalTaxPercent }}%</strong>
+</div>
