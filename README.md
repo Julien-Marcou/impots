@@ -1,6 +1,6 @@
 # Income tax calculator 🇫🇷
 
-http://impots.julien-marcou.fr/
+https://impots.julien-marcou.fr/
 
 Ce simulateur d'impôt sur le revenu permet de calculer votre taux d'imposition et de visualiser plus précisément les différentes tranches d'impositions.
 
