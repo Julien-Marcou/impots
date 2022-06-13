@@ -67,7 +67,7 @@ export class AppComponent implements OnInit {
   public totalTaxAmount = 0;
   public totalTaxPercent = 0;
 
-  public ngOnInit() {
+  public ngOnInit(): void {
     if (document.location.hash === '#2019') {
       this.taxBrackets = [
         {
@@ -115,7 +115,7 @@ export class AppComponent implements OnInit {
           lastMatched: false,
           amount: 0,
         },
-      ]
+      ];
     }
     this.updateGraph();
     this.incomeInput.valueChanges.subscribe(() => {
@@ -126,13 +126,13 @@ export class AppComponent implements OnInit {
     });
   }
 
-  public decreaseIncome(amount: number) {
+  public decreaseIncome(amount: number): void {
     if (this.incomeInput.value && this.incomeInput.value - amount >= this.minIncome) {
       this.incomeInput.setValue(this.incomeInput.value - amount);
     }
   }
 
-  public increaseIncome(amount: number) {
+  public increaseIncome(amount: number): void {
     if (!this.incomeInput.value) {
       this.incomeInput.setValue(amount);
     }
@@ -141,9 +141,9 @@ export class AppComponent implements OnInit {
     }
   }
 
-  public updateGraph() {
+  public updateGraph(): void {
     let incomeRest = this.income;
-    let gridTemplateColumns = [];
+    const gridTemplateColumns: Array<string> = [];
     for (const taxBracket of this.taxBrackets) {
       taxBracket.lastMatched = false;
       if (incomeRest < 0) {
@@ -172,9 +172,7 @@ export class AppComponent implements OnInit {
       }
     }
     this.gridTemplateColumns = gridTemplateColumns.join(' ');
-    this.totalTaxAmount = this.taxBrackets.reduce((totalTaxAmount, taxBracket) => {
-      return totalTaxAmount + taxBracket.amount;
-    }, 0);
+    this.totalTaxAmount = this.taxBrackets.reduce((totalTaxAmount, taxBracket) => totalTaxAmount + taxBracket.amount, 0);
     this.totalTaxPercent = Math.round((this.totalTaxAmount * 100 / this.income) * 10) / 10;
   }
 
