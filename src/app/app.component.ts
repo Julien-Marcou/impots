@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
   ];
   public readonly minIncome = 0;
   public readonly maxIncome = Number.MAX_SAFE_INTEGER;
-  public readonly incomeInput = new FormControl('', [
+  public readonly incomeInput = new UntypedFormControl('', [
     Validators.required,
     Validators.min(this.minIncome),
     Validators.max(this.maxIncome),
