@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl, Validators } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -57,11 +57,12 @@ export class AppComponent implements OnInit {
   ];
   public readonly minIncome = 0;
   public readonly maxIncome = Number.MAX_SAFE_INTEGER;
-  public readonly incomeInput = new UntypedFormControl('', [
+  public readonly incomeInput = new FormControl<number | null>(null, [
     Validators.required,
     Validators.min(this.minIncome),
     Validators.max(this.maxIncome),
   ]);
+  public income = 0;
   public gridTemplateColumns = '';
   public totalTaxAmount = 0;
   public totalTaxPercent = 0;
@@ -118,6 +119,7 @@ export class AppComponent implements OnInit {
     }
     this.updateGraph();
     this.incomeInput.valueChanges.subscribe(() => {
+      this.income = this.incomeInput.value ?? 0;
       if (this.incomeInput.valid) {
         this.updateGraph();
       }
@@ -140,7 +142,7 @@ export class AppComponent implements OnInit {
   }
 
   public updateGraph() {
-    let incomeRest = this.incomeInput.value;
+    let incomeRest = this.income;
     let gridTemplateColumns = [];
     for (const taxBracket of this.taxBrackets) {
       taxBracket.lastMatched = false;
@@ -154,7 +156,7 @@ export class AppComponent implements OnInit {
         incomeRest -= bracketSize;
         if (incomeRest < 0) {
           taxBracket.lastMatched = true;
-          const bracketIncome = (this.incomeInput.value - taxBracket.from) || 1;
+          const bracketIncome = (this.income - taxBracket.from) || 1;
           taxBracket.amount = Math.round(bracketIncome / 100 * taxBracket.rate);
           if (bracketSize === Infinity) {
             gridTemplateColumns.push(`${bracketIncome}fr min-content`);
@@ -173,7 +175,7 @@ export class AppComponent implements OnInit {
     this.totalTaxAmount = this.taxBrackets.reduce((totalTaxAmount, taxBracket) => {
       return totalTaxAmount + taxBracket.amount;
     }, 0);
-    this.totalTaxPercent = Math.round((this.totalTaxAmount * 100 / this.incomeInput.value) * 10) / 10;
+    this.totalTaxPercent = Math.round((this.totalTaxAmount * 100 / this.income) * 10) / 10;
   }
 
 }
