@@ -1,4 +1,4 @@
-# 🇫🇷 Income tax calculator 2020
+# 🇫🇷 Income tax calculator 2022
 
 https://impots.julien-marcou.fr/
 

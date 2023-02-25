@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   public taxBrackets = [
     {
       from: 0,
-      to: 10064,
+      to: 10777,
       rate: 0,
       color: '#eee',
       matched: false,
@@ -19,8 +19,8 @@ export class AppComponent implements OnInit {
       amount: 0,
     },
     {
-      from: 10064,
-      to: 25659,
+      from: 10777,
+      to: 27478,
       rate: 11,
       color: '#fff600',
       matched: false,
@@ -28,8 +28,8 @@ export class AppComponent implements OnInit {
       amount: 0,
     },
     {
-      from: 25659,
-      to: 73369,
+      from: 27478,
+      to: 78570,
       rate: 30,
       color: '#faa60c',
       matched: false,
@@ -37,8 +37,8 @@ export class AppComponent implements OnInit {
       amount: 0,
     },
     {
-      from: 73369,
-      to: 157806,
+      from: 78570,
+      to: 168994,
       rate: 41,
       color: '#f66018',
       matched: false,
@@ -46,7 +46,7 @@ export class AppComponent implements OnInit {
       amount: 0,
     },
     {
-      from: 157806,
+      from: 168994,
       to: Infinity,
       rate: 45,
       color: '#f12323',
@@ -71,49 +71,102 @@ export class AppComponent implements OnInit {
     if (document.location.hash === '#2019') {
       this.taxBrackets = [
         {
+          ...this.taxBrackets[0],
           from: 0,
           to: 10064,
           rate: 0,
-          color: '#eee',
-          matched: false,
-          lastMatched: false,
-          amount: 0,
         },
         {
+          ...this.taxBrackets[1],
           from: 10064,
           to: 27794,
           rate: 14,
-          color: '#fff600',
-          matched: false,
-          lastMatched: false,
-          amount: 0,
         },
         {
+          ...this.taxBrackets[2],
           from: 27794,
           to: 74517,
           rate: 30,
-          color: '#faa60c',
-          matched: false,
-          lastMatched: false,
-          amount: 0,
         },
         {
+          ...this.taxBrackets[3],
           from: 74517,
           to: 157806,
           rate: 41,
-          color: '#f66018',
-          matched: false,
-          lastMatched: false,
-          amount: 0,
         },
         {
+          ...this.taxBrackets[4],
           from: 157806,
           to: Infinity,
           rate: 45,
-          color: '#f12323',
-          matched: false,
-          lastMatched: false,
-          amount: 0,
+        },
+      ];
+    }
+    else if (document.location.hash === '#2020') {
+      this.taxBrackets = [
+        {
+          ...this.taxBrackets[0],
+          from: 0,
+          to: 10084,
+          rate: 0,
+        },
+        {
+          ...this.taxBrackets[1],
+          from: 10084,
+          to: 25710,
+          rate: 11,
+        },
+        {
+          ...this.taxBrackets[2],
+          from: 25710,
+          to: 73516,
+          rate: 30,
+        },
+        {
+          ...this.taxBrackets[3],
+          from: 73516,
+          to: 158122,
+          rate: 41,
+        },
+        {
+          ...this.taxBrackets[4],
+          from: 158122,
+          to: Infinity,
+          rate: 45,
+        },
+      ];
+    }
+    else if (document.location.hash === '#2021') {
+      this.taxBrackets = [
+        {
+          ...this.taxBrackets[0],
+          from: 0,
+          to: 10225,
+          rate: 0,
+        },
+        {
+          ...this.taxBrackets[1],
+          from: 10225,
+          to: 26070,
+          rate: 11,
+        },
+        {
+          ...this.taxBrackets[2],
+          from: 26070,
+          to: 74545,
+          rate: 30,
+        },
+        {
+          ...this.taxBrackets[3],
+          from: 74545,
+          to: 160336,
+          rate: 41,
+        },
+        {
+          ...this.taxBrackets[4],
+          from: 160336,
+          to: Infinity,
+          rate: 45,
         },
       ];
     }
